@@ -1,0 +1,35 @@
+{
+  "name": "discord-bot-ts",
+  "version": "1.0.0",
+  "description": "A versatile Discord bot with music, time, and fun commands",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "watch": "tsc -w"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "typescript",
+    "music"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "@discordjs/voice": "^0.16.1",
+    "play-dl": "^1.9.7",
+    "moment-timezone": "^0.5.43",
+    "axios": "^1.6.2",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.6.1",
+    "typescript": "^5.3.2"
+  }
+}
