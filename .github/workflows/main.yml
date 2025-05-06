@@ -1,0 +1,29 @@
+name: Discord Bot
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout do repositório
+        uses: actions/checkout@v3
+
+      - name: 🟢 Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: 📦 Instalar dependências
+        run: npm install
+
+      - name: 🔨 Compilar TypeScript
+        run: npm run build
+
+      - name: ✅ Verificar sucesso da build
+        run: echo "Build finalizada com sucesso!"
