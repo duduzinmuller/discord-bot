@@ -28,7 +28,7 @@ const command: Command = {
       const embed = createEmbed({
         title: "😂 Aqui está uma piada!",
         description: `**${response.data.setup}**\n\n${response.data.delivery}`,
-        color: Colors.MUSIC as ColorResolvable,
+        color: Colors.SUCCESS as ColorResolvable,
         footer: {
           text: `Categoria: ${response.data.category} | Solicitado por ${message.author.tag}`,
         },
@@ -43,7 +43,7 @@ const command: Command = {
         title: "❌ Erro",
         description:
           "Não consegui encontrar uma piada. Tente novamente mais tarde.",
-        color: Colors.MUSIC as ColorResolvable,
+        color: Colors.ERROR as ColorResolvable,
         timestamp: true,
       });
 

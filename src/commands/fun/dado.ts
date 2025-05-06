@@ -26,7 +26,7 @@ const command: Command = {
     const embed = createEmbed({
       title: "🎲 Rolagem de Dado",
       description: `Você rolou um d${faces} e tirou: **${result}**`,
-      color: Colors.MUSIC as ColorResolvable,
+      color: Colors.SUCCESS as ColorResolvable,
       footer: { text: `Solicitado por ${message.author.tag}` },
       timestamp: true,
     });

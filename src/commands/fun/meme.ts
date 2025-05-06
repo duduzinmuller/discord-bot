@@ -18,7 +18,7 @@ const command: Command = {
       const embed = createEmbed({
         title: "😂 Meme",
         description: response.data.title,
-        color: Colors.MUSIC as ColorResolvable,
+        color: Colors.SUCCESS as ColorResolvable,
         image: response.data.url,
         footer: {
           text: `👍 ${response.data.ups} | Solicitado por ${message.author.tag}`,

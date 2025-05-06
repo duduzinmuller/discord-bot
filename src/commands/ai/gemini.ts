@@ -45,7 +45,7 @@ const command: Command = {
       const embed = createEmbed({
         title: "🤖 Resposta do Google Gemini",
         description: text || "Não consegui gerar uma resposta.",
-        color: Colors.MUSIC as ColorResolvable,
+        color: Colors.SUCCESS as ColorResolvable,
         footer: { text: `Solicitado por ${message.author.tag}` },
         timestamp: true,
       });

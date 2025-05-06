@@ -42,7 +42,7 @@ const command: Command = {
     const embed = createEmbed({
       title: "⏰ Lembrete Definido",
       description: `Vou te lembrar sobre: **${reminderText}**\nEm: **${minutes} minutos**`,
-      color: Colors.MUSIC as ColorResolvable,
+      color: Colors.SUCCESS as ColorResolvable,
       footer: { text: `Solicitado por ${message.author.tag}` },
       timestamp: true,
     });

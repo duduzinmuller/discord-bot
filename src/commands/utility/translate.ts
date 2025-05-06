@@ -169,7 +169,7 @@ const command: Command = {
           { name: "Texto Original", value: text },
           { name: "Tradução", value: result.text },
         ],
-        color: Colors.MUSIC as ColorResolvable,
+        color: Colors.SUCCESS as ColorResolvable,
         footer: { text: `${result.from.language.iso} ➜ ${targetLang}` },
         timestamp: true,
       });
