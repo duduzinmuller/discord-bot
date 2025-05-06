@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Collection} from "discord.js";
+import { Client, GatewayIntentBits, Collection } from "discord.js";
 import { config } from "dotenv";
 import path from "path";
 import fs from "fs";
@@ -29,7 +29,7 @@ declare module "discord.js" {
 }
 
 client.commands = new Collection();
-client.prefix = process.env.PREFIX || "!";
+client.prefix = process.env.PREFIX || "/";
 
 const commandsPath = path.join(__dirname, "commands");
 const commandFolders = fs.readdirSync(commandsPath);
