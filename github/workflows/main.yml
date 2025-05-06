@@ -22,10 +22,6 @@ jobs:
       - name: 📦 Instalar dependências
         run: npm install
 
-      - name: 🔍 Rodar Lint (se você usa ESLint)
-        run: npm run lint
-        continue-on-error: true
-
       - name: 🔨 Compilar TypeScript
         run: npm run build
 
