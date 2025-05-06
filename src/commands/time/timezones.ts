@@ -38,7 +38,7 @@ const command: Command = {
     const embed = createEmbed({
       title: '🌐 Principais Fusos Horários',
       description: 'Horários atuais nos principais fusos horários do mundo:',
-      color: Colors.INFO,
+      color: Colors.INFO as any, 
       fields: timezoneFields,
       footer: { text: `Use "${message.client.prefix}hora [fuso horário]" para verificar um fuso horário específico` },
       timestamp: true

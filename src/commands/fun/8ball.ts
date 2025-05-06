@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { ColorResolvable, Message } from 'discord.js';
 import { Command } from '../../types/Command.js';
 import { createEmbed, Colors } from '../../utils/embeds.js';
 
@@ -18,7 +18,7 @@ const command: Command = {
           createEmbed({
             title: '❓ Pergunta Faltando',
             description: `Você precisa fazer uma pergunta! Tente \`${message.client.prefix}8ball Vou ter um bom dia?\``,
-            color: Colors.WARNING,
+            color: 'Yellow',
             timestamp: true
           })
         ]
@@ -27,7 +27,6 @@ const command: Command = {
     
     const question = args.join(' ');
     
-    // Respostas da bola 8 em português
     const responses = [
       'Com certeza!',
       'Definitivamente sim.',
@@ -55,17 +54,17 @@ const command: Command = {
     
     let color = Colors.PRIMARY;
     if (responses.indexOf(response) < 10) {
-      color = Colors.SUCCESS;  // Resposta positiva
+      color = Colors.SUCCESS; 
     } else if (responses.indexOf(response) >= 15) {
-      color = Colors.ERROR;    // Resposta negativa
+      color = Colors.ERROR;    
     } else {
-      color = Colors.WARNING;  // Resposta neutra
+      color = Colors.WARNING;  
     }
     
     const embed = createEmbed({
       title: '🎱 Bola 8 Mágica',
       description: `**Pergunta:** ${question}\n\n**Resposta:** ${response}`,
-      color,
+      color: color as ColorResolvable,
       thumbnail: 'https://i.imgur.com/44uuMmH.png',
       footer: { text: `Perguntado por ${message.author.tag}` },
       timestamp: true

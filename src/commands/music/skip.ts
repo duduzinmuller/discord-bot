@@ -63,19 +63,17 @@ const command: Command = {
         ]
       });
     }
-    
     const currentSong = queue.songs[0];
-    const player = connection.state.subscription?.player;
+    const player = (connection.state as any).subscription?.player;
     
     if (player) {
       player.stop();
-      
       return message.reply({
         embeds: [
           createEmbed({
             title: '⏭️ Música Pulada',
             description: `Pulou [${currentSong.title}](${currentSong.url})`,
-            color: Colors.PRIMARY,
+            color: '#2B2D31',
             timestamp: true
           })
         ]

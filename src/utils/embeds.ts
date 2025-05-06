@@ -45,7 +45,7 @@ export function createSuccessEmbed(title: string, description: string) {
   return createEmbed({
     title,
     description,
-    color: Colors.SUCCESS,
+    color: `#${Colors.SUCCESS.substring(1)}` as ColorResolvable,
     timestamp: true,
   });
 }
@@ -54,7 +54,7 @@ export function createErrorEmbed(title: string, description: string) {
   return createEmbed({
     title,
     description,
-    color: Colors.ERROR,
+    color: `#${Colors.ERROR.substring(1)}` as ColorResolvable,
     timestamp: true,
   });
 }
@@ -63,7 +63,7 @@ export function createMusicEmbed(title: string, description: string) {
   return createEmbed({
     title,
     description,
-    color: Colors.MUSIC,
+    color: `#${Colors.MUSIC.substring(1)}` as ColorResolvable,
     timestamp: true,
   });
 }

@@ -1,4 +1,4 @@
-import { Message } from 'discord.js';
+import { ColorResolvable, Message } from 'discord.js';
 import { Command } from '../../types/Command.js';
 import { createEmbed, Colors, createErrorEmbed } from '../../utils/embeds.js';
 import { getQueue } from '../../utils/musicManager.js';
@@ -44,7 +44,7 @@ const command: Command = {
     const embed = createEmbed({
       title: '🎵 Fila de Músicas',
       description: pages[0].join('\n\n'),
-      color: Colors.MUSIC,
+      color: Colors.MUSIC as ColorResolvable,
       thumbnail: queue.songs[0].thumbnail || undefined,
       footer: {
         text: `Página 1/${pages.length} • ${queue.songs.length} música(s) na fila • Solicitado por ${message.author.tag}`

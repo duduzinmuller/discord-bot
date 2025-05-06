@@ -2,6 +2,7 @@ import { Message } from 'discord.js';
 import { Command } from '../../types/Command.js';
 import { createEmbed, Colors } from '../../utils/embeds.js';
 import moment from 'moment-timezone';
+import { ColorResolvable } from 'discord.js';
 
 const command: Command = {
   data: {
@@ -38,7 +39,7 @@ const command: Command = {
               createEmbed({
                 title: '⚠️ Fuso Horário Inválido',
                 description: `"${requestedTimezone}" não é um fuso horário válido. Tente usar um formato continente/cidade como "America/Sao_Paulo" ou "Europe/London".`,
-                color: Colors.WARNING,
+                color: Colors.WARNING as ColorResolvable,
                 timestamp: true
               })
             ]
@@ -54,7 +55,7 @@ const command: Command = {
     const embed = createEmbed({
       title: `🕒 Hora Atual: ${timezone}`,
       description: `${formattedTime} (${abbreviation})`,
-      color: Colors.INFO,
+      color: 0x3498db,
       fields: [
         {
           name: 'Data',

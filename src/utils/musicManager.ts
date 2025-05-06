@@ -1,6 +1,5 @@
 import { logger } from "./logger.js";
 
-// Define the song interface
 interface Song {
   title: string;
   url: string;
@@ -9,7 +8,6 @@ interface Song {
   requestedBy: string;
 }
 
-// Define the queue interface
 interface Queue {
   textChannel: string;
   songs: Song[];

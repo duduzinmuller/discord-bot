@@ -1,4 +1,4 @@
-import { Message, GuildMember } from 'discord.js';
+import { Message, GuildMember, ColorResolvable } from 'discord.js';
 import { Command } from '../../types/Command.js';
 import { createEmbed, Colors, createErrorEmbed } from '../../utils/embeds.js';
 import { getVoiceConnection } from '@discordjs/voice';
@@ -63,7 +63,7 @@ const command: Command = {
         createEmbed({
           title: '🛑 Música Parada',
           description: `Parei a reprodução e limpei a fila. Removidas ${songsCount} música(s).`,
-          color: Colors.PRIMARY,
+          color: Colors.MUSIC as ColorResolvable,
           timestamp: true
         })
       ]
