@@ -85,10 +85,15 @@ for (const file of eventFiles) {
       logger.error(`Failed to load event at ${filePath}:`, error);
     });
 }
-
 client
   .login(process.env.BOT_TOKEN)
-  .then(() => logger.info("Bot logged in successfully"))
+  .then(() => {
+    logger.info("Bot logged in successfully");
+
+    setInterval(() => {
+      logger.debug("⏳ Mantendo o bot vivo...");
+    }, 1000 * 60 * 5);
+  })
   .catch((error) => logger.error("Failed to log in:", error));
 
 process.on("SIGINT", () => {
