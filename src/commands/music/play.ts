@@ -248,6 +248,18 @@ const command: Command = {
         ],
       });
     }
+
+    process.on('unhandledRejection', (reason, promise) => {
+      logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+      initialReply.edit({
+        embeds: [
+          createErrorEmbed(
+            'Erro Inesperado',
+            'Ocorreu um erro inesperado. Tente novamente mais tarde.'
+          ),
+        ],
+      });
+    });
   },
 };
 
