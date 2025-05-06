@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits, Collection } from "discord.js";
 import { config } from "dotenv";
 import path from "path";
 import fs from "fs";
+import express from "express";
 import { fileURLToPath } from "url";
 import { logger } from "./utils/logger.js";
 import { Command } from "./types/Command.js";
@@ -102,4 +103,15 @@ process.on("uncaughtException", (error) => {
 
 process.on("unhandledRejection", (error) => {
   logger.error("Unhandled Rejection:", error);
+});
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.get("/", (_req, res) => {
+  res.send("Bot do Discord está rodando com sucesso!");
+});
+
+app.listen(PORT, () => {
+  logger.info(`Servidor HTTP iniciado na porta ${PORT}`);
 });
