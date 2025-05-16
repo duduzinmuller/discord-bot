@@ -6,6 +6,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
+const userConversations = new Map<string, string[]>();
+
 const command: Command = {
   data: {
     name: "gemini",
@@ -27,6 +29,15 @@ const command: Command = {
       });
     }
 
+    const question = args.join(" ");
+    const userId = message.author.id;
+
+    let conversation = userConversations.get(userId) || [];
+
+    conversation.push(`Usuário: ${question}`);
+
+    const prompt = conversation.join("\n") + "\nAssistente:";
+
     const loadingMessage = await message.reply({
       embeds: [
         createEmbed({
@@ -38,10 +49,13 @@ const command: Command = {
     });
 
     try {
-      const prompt = args.join(" ");
       const result = await model.generateContent(prompt);
+      const response = result.response;
+      const text = response.text();
 
-      const text = result.response?.text() || "";
+      conversation.push(`Assistente: ${text}`);
+
+      userConversations.set(userId, conversation);
 
       const embed = createEmbed({
         title: "🤖 Resposta do Google Gemini",
