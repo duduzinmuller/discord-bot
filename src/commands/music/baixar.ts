@@ -7,8 +7,36 @@ import fs from "fs";
 import path from "path";
 import { exec } from "child_process";
 import util from "util";
+import https from "https";
 
 const execAsync = util.promisify(exec);
+
+const ytDlpPath = path.resolve("bin", "yt-dlp");
+
+async function ensureYtDlpInstalled() {
+  if (!fs.existsSync(ytDlpPath)) {
+    const binDir = path.dirname(ytDlpPath);
+    fs.mkdirSync(binDir, { recursive: true });
+
+    const file = fs.createWriteStream(ytDlpPath);
+    const url =
+      "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp";
+
+    await new Promise<void>((resolve, reject) => {
+      https.get(url, (response) => {
+        if (response.statusCode !== 200) {
+          return reject(new Error("Falha ao baixar yt-dlp."));
+        }
+        response.pipe(file);
+        file.on("finish", () => {
+          file.close();
+          fs.chmodSync(ytDlpPath, 0o755);
+          resolve();
+        });
+      }).on("error", reject);
+    });
+  }
+}
 
 const command: Command = {
   data: {
@@ -43,6 +71,8 @@ const command: Command = {
     });
 
     try {
+      await ensureYtDlpInstalled();
+
       const result = (await play.search(query, { limit: 1 })) as YouTubeVideo[];
       const songInfo = result[0];
 
@@ -67,7 +97,7 @@ const command: Command = {
       }
 
       await execAsync(
-        `yt-dlp -x --audio-format mp3 -o "${outputPath}" "${url}"`
+        `${ytDlpPath} -x --audio-format mp3 -o "${outputPath}" "${url}"`
       );
 
       await message.channel.send({
@@ -76,7 +106,6 @@ const command: Command = {
       });
 
       fs.unlinkSync(outputPath);
-
       await reply.delete();
     } catch (error) {
       logger.error("Erro ao baixar música:", error);
@@ -85,7 +114,7 @@ const command: Command = {
         embeds: [
           createErrorEmbed(
             "Erro ao Baixar",
-            "Ocorreu um erro ao tentar baixar a música. Certifique-se de que o YouTube-DL ou YT-DLP está instalado corretamente."
+            "Ocorreu um erro ao tentar baixar a música. Certifique-se de que o YT-DLP foi baixado corretamente."
           ),
         ],
       });
