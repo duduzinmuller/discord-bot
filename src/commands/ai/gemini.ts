@@ -6,8 +6,6 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_KEY || "");
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-const userConversations = new Map<string, string[]>();
-
 const command: Command = {
   data: {
     name: "gemini",
@@ -24,19 +22,10 @@ const command: Command = {
           createErrorEmbed(
             "Pergunta Faltando",
             `Por favor, faça uma pergunta! Exemplo: \`${message.client.prefix}gemini Como funciona a fotossíntese?\``
-          ),
+          ).toJSON(),
         ],
       });
     }
-
-    const question = args.join(" ");
-    const userId = message.author.id;
-
-    let conversation = userConversations.get(userId) || [];
-
-    conversation.push(`Usuário: ${question}`);
-
-    const prompt = conversation.join("\n") + "\nAssistente:";
 
     const loadingMessage = await message.reply({
       embeds: [
@@ -44,18 +33,14 @@ const command: Command = {
           title: "🤔 Pensando...",
           description: "Processando sua pergunta...",
           color: Colors.MUSIC as ColorResolvable,
-        }),
+        }).toJSON(),
       ],
     });
 
     try {
-      const result = await model.generateContent(prompt);
+      const result = await model.generateContent(args.join(" "));
       const response = result.response;
-      const text = response.text();
-
-      conversation.push(`Assistente: ${text}`);
-
-      userConversations.set(userId, conversation);
+      const text = await response.text();
 
       const embed = createEmbed({
         title: "🤖 Resposta do Google Gemini",
@@ -65,7 +50,7 @@ const command: Command = {
         timestamp: true,
       });
 
-      await loadingMessage.edit({ embeds: [embed] });
+      await loadingMessage.edit({ embeds: [embed.toJSON()] });
     } catch (error) {
       console.error("Erro ao usar Gemini:", error);
 
@@ -74,7 +59,7 @@ const command: Command = {
           createErrorEmbed(
             "Erro",
             "Ocorreu um erro ao processar sua pergunta. Tente novamente mais tarde."
-          ),
+          ).toJSON(),
         ],
       });
     }
