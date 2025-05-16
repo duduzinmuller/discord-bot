@@ -38,9 +38,10 @@ const command: Command = {
     });
 
     try {
-      const result = await model.generateContent(args.join(" "));
-      const response = result.response;
-      const text = response.text();
+      const prompt = args.join(" ");
+      const result = await model.generateContent(prompt);
+
+      const text = result.response?.text() || "";
 
       const embed = createEmbed({
         title: "🤖 Resposta do Google Gemini",
