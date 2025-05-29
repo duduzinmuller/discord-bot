@@ -14,12 +14,29 @@ const command: Command = {
   execute: async (message: Message) => {
     try {
       const response: any = await axios.get(
-        "https://uselessfacts.jsph.pl/api/v2/facts/random?language=pt"
+        "https://uselessfacts.jsph.pl/api/v2/facts/random?language=en"
       );
+
+      const fact = response.data.text;
+
+      const translationResponse: any = await axios.post(
+        "https://libretranslate.de/translate",
+        {
+          q: fact,
+          source: "en",
+          target: "pt",
+          format: "text",
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      const translatedFact = translationResponse.data.translatedText;
 
       const embed = createEmbed({
         title: "🤓 Fato Curioso",
-        description: response.data.text,
+        description: translatedFact,
         color: Colors.SUCCESS as ColorResolvable,
         footer: { text: `Solicitado por ${message.author.tag}` },
         timestamp: true,
@@ -27,7 +44,7 @@ const command: Command = {
 
       await message.reply({ embeds: [embed] });
     } catch (error) {
-      console.error("Erro ao buscar fato:", error);
+      console.error("Erro ao buscar fato ou traduzir:", error);
 
       const embed = createEmbed({
         title: "❌ Erro",
